@@ -4,10 +4,36 @@ void main() {
   runApp(MyApp());
 }
 
+class TemaCustom extends ThemeExtension<TemaCustom> {
+  final Color? cor;
+  final BoxDecoration? decoration;
+
+  TemaCustom({required this.cor, required this.decoration});
+
+  @override
+  TemaCustom copyWith({Color? cor, BoxDecoration? decoration}) {
+    return TemaCustom(
+      cor: cor ?? this.cor,
+      decoration: decoration ?? this.decoration,
+    );
+  }
+
+  @override
+  TemaCustom lerp(ThemeExtension<TemaCustom>? other, double t) {
+    if (other is! TemaCustom) {
+      return this;
+    }
+    return TemaCustom(
+      cor: Color.lerp(cor, other.cor, t),
+      decoration: BoxDecoration.lerp(decoration, other.decoration, t),
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final ValueNotifier<bool> materialNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> materialNotifier = ValueNotifier(true);
   final MaterialColor colorSeed = Colors.deepPurple;
 
   @override
@@ -18,10 +44,19 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Flutter 3',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
+          theme: ThemeData.light().copyWith(
             useMaterial3: material3,
             colorScheme: material3 ? ColorScheme.fromSeed(seedColor: colorSeed) : null,
-            primarySwatch: !material3 ? colorSeed : null,
+            primaryColor: !material3 ? colorSeed : null,
+            extensions: <ThemeExtension<dynamic>>[
+              TemaCustom(
+                cor: const Color.fromARGB(34, 109, 57, 141),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  color: Color.fromARGB(239, 255, 142, 142),
+                ),
+              ),
+            ],
           ),
           home: MyHomePage(title: 'Flutter 3', material3: materialNotifier),
         );
@@ -78,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TemaCustom tema = Theme.of(context).extension<TemaCustom>()!;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -87,7 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(24.0),
         child: ListView(
           children: <Widget>[
-            Card(
+            Container(
+              decoration: tema.decoration,
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Center(
@@ -133,7 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 24),
-            Card(
+            Container(
+              color: tema.cor,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: ListTile(
