@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_v3/controllers/counter_controller.dart';
 import 'package:flutter_v3/pages/usuarios_page.dart';
@@ -13,9 +15,15 @@ class CounterPage extends StatefulWidget {
 class _CounterPageState extends State<CounterPage> {
   @override
   Widget build(BuildContext context) {
+    // final controller = context.watch<CounterController>();
+    debugPrint('Entrou Build');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Counter'),
+        title: Builder(builder: (context) {
+          debugPrint('Entrou Builder Local');
+          final rand = Random(20).nextInt(100 - context.watch<CounterController>().count).toString();
+          return Text('Counter $rand');
+        }),
         actions: [
           IconButton(
             icon: const Icon(Icons.people),

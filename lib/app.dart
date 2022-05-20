@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_v3/pages/button_page.dart';
+import 'package:flutter_v3/page/home_page.dart';
 import 'package:flutter_v3/theme/tema_custom.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  final ValueNotifier<bool> materialNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> materialNotifier = ValueNotifier(true);
   final MaterialColor colorSeed = Colors.deepPurple;
 
   @override
@@ -33,8 +33,9 @@ class App extends StatelessWidget {
 
           // home: MyHomePage(title: 'Flutter 3', material3: materialNotifier),
           // home: const UsuariosPage(),
+          home: HomePage(),
           // home: const CounterPage(),
-          home: const ButtonPage(),
+          // home: const ButtonPage(),
         );
       },
     );
