@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_v3/adapters/usuario_transformer.dart';
 import 'package:flutter_v3/configs.dart';
 import 'package:flutter_v3/models/usuario.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 class UsuariosRepository {
@@ -23,7 +23,7 @@ class UsuariosRepository {
         usuarios.add(UsuarioTransformer.fromMap(usuario));
       }
     }
-    debugPrint('Quantidade Repository: ${usuarios.length}');
+    // debugPrint('Quantidade Repository: ${usuarios.length}');
     return usuarios;
   }
 

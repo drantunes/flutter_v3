@@ -78,6 +78,8 @@ class _UsuariosPageState extends State<UsuariosPage> {
                       child: Image(
                         image: CachedNetworkImageProvider(
                           usuarios[index].avatar ?? controller.avatarDefault,
+                          maxHeight: 60,
+                          maxWidth: 60,
                         ),
                       ),
                     ),

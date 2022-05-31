@@ -14,7 +14,7 @@ class UsuariosController extends ChangeNotifier {
 
   loadUsuarios() async {
     usuarios = await usuariosRepository.getAll();
-    debugPrint('Quantidade Controller: ${usuarios.length}');
+    // debugPrint('Quantidade Controller: ${usuarios.length}');
     notifyListeners();
   }
 }

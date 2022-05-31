@@ -4,7 +4,9 @@ import 'package:flutter_v3/controllers/usuario_controller.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  ValueNotifier<Color> color = ValueNotifier(Colors.black87);
+  HomePage({Key? key}) : super(key: key);
+
+  final ValueNotifier<Color> color = ValueNotifier(Colors.black87);
 
   @override
   Widget build(BuildContext context) {
