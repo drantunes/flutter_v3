@@ -1,5 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_v3/controllers/usuario_controller.dart';
 import 'package:flutter_v3/pages/counter_page.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +52,10 @@ class _UsuariosPageState extends State<UsuariosPage> {
               builder: (_) => const CounterPage(),
             )),
             icon: const Icon(Icons.person_add),
+          ),
+          IconButton(
+            onPressed: () => Navigator.of(context).pushNamed('/photos'),
+            icon: const Icon(Icons.photo_sharp),
           ),
         ],
       ),

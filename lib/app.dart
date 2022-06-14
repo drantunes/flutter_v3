@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_v3/pages/usuarios_page.dart';
-import 'package:flutter_v3/repositories/photos_repository.dart';
+
+import 'package:flutter_v3/modules/photos_module.dart';
+import 'package:flutter_v3/modules/usuarios_module.dart';
+import 'package:flutter_v3/pages/counter_page.dart';
 import 'package:flutter_v3/theme/tema_custom.dart';
-import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
@@ -12,9 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<PhotosRepository>().getAll();
-
-    debugInvertOversizedImages = true;
+    // debugInvertOversizedImages = true;
 
     return ValueListenableBuilder<bool>(
       valueListenable: materialNotifier,
@@ -22,7 +21,6 @@ class App extends StatelessWidget {
         return MaterialApp(
           title: 'Flutter 3',
           debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.dark,
           theme: ThemeData.light().copyWith(
             useMaterial3: material3,
             colorScheme: material3 ? ColorScheme.fromSeed(seedColor: colorSeed) : null,
@@ -37,13 +35,12 @@ class App extends StatelessWidget {
               ),
             ],
           ),
-
-          // home: MyHomePage(title: 'Flutter 3', material3: materialNotifier),
-          home: const UsuariosPage(),
-          // home: HomePage(),
-          // home: const CounterPage(),
-          // home: const ButtonPage(),
-          // home: const PhotosPage(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const CounterPage(),
+            '/photos': (context) => const PhotosModule(),
+            '/usuarios': (context) => const UsuariosModule(),
+          },
         );
       },
     );

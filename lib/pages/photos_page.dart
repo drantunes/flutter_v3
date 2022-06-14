@@ -1,10 +1,23 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_v3/repositories/photos_repository.dart';
 import 'package:provider/provider.dart';
 
-class PhotosPage extends StatelessWidget {
+class PhotosPage extends StatefulWidget {
   const PhotosPage({Key? key}) : super(key: key);
+
+  @override
+  State<PhotosPage> createState() => _PhotosPageState();
+}
+
+class _PhotosPageState extends State<PhotosPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<PhotosRepository>().getAll();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +30,7 @@ class PhotosPage extends StatelessWidget {
         child: Consumer<PhotosRepository>(
           builder: (context, repository, child) => GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+              crossAxisCount: (kIsWeb) ? 5 : 3,
             ),
             itemCount: repository.photos.length,
             itemBuilder: (context, index) => Padding(
